@@ -1,4 +1,4 @@
-# 🧠 Markov Chain SPSA Optimization
+# Markov Chain SPSA Optimization
 
 This repository implements an SPSA (Simultaneous Perturbation Stochastic Approximation) solver to optimize the transition probabilities of a Markov chain under potential edge failures,  including both independent and correlated failure models.
 
