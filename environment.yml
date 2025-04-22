@@ -1,0 +1,16 @@
+name: mcopt
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7.16
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - networkx
+  - sympy
+  - tqdm
+  - pip
+  - pip:
+    - keyboard
