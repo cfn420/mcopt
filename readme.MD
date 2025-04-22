@@ -1,6 +1,8 @@
 # Markov Chain SPSA Optimization
 
-This repository implements an SPSA (Simultaneous Perturbation Stochastic Approximation) solver to optimize the transition probabilities of a Markov chain under potential edge failures,  including both independent and correlated failure models.
+This repository implements an SPSA (Simultaneous Perturbation Stochastic Approximation) solver to optimize the transition probabilities of a Markov chain with respect to (scaled) mean first passage times as in the paper:
+
+- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2024). A First-Order Gradient Approach for the Connectivity Analysis of Markov Chains. arXiv preprint arXiv:2403.11744.
 
 ---
 
@@ -22,7 +24,7 @@ conda activate mcopt
 
 All configurable parameters are defined near the top of `main.py` under the **CONFIGURATION** block.
 
-### 🧱 Network settings
+### 🧱 Define the network grid
 
 ```python
 GRID_DIM = 9
@@ -34,7 +36,7 @@ UNDIRECTED_GRAPH = False
 
 ```python
 PI_HAT = np.full((N,), 1/N)  # Optional stationary distribution constraint
-C = np.full((N, N), 1 / N**2)  # Cost matrix
+C = np.full((N, N), 1 / N**2)  # Matrix of weights for mean first passage times.
 ```
 
 ### ⚙️ SPSA solver parameters
@@ -62,7 +64,7 @@ UNDIRECTED_FAILING_EDGES = True  # Symmetric failure assumption
 CORRELATED_FAILURES = True       # Use multivariate sampling
 ```
 
-Ensure appropriate failure maps are defined in `data/failure_maps/`, and for correlated failure models, a valid covariance matrix should be defined following Chen (2015), in `data/covariance_matrices/`.
+Ensure appropriate failure maps are defined in `data/failure_maps/`, which indicate the failing edges in the network (after deleting nodes from the grid, if any). For correlated failure models, a valid covariance matrix should be defined following Chen (2015), and inserted in `data/covariance_matrices/`. The current instances reflects the example used in Section VI.B in Franssen et al. (2024).
 
 ### 🧍 Transition bounds
 
