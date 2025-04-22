@@ -1,73 +1,125 @@
-# Markov Chain SPSA Optimization
+# 🧠 Markov Chain SPSA Optimization
 
-This repository implements a stochastic approximation (SPSA) solver to optimize transition probabilities of a Markov chain under possible edge failures.
+This repository implements an SPSA (Simultaneous Perturbation Stochastic Approximation) solver to optimize the transition probabilities of a Markov chain under potential edge failures,  including both independent and correlated failure models.
 
 ---
 
-## Prerequisites
+## 📦 Prerequisites
 
-- Python 3.7+
+- Python 3.7 (tested on 3.7.16)
+- [Conda](https://docs.conda.io/en/latest/miniconda.html) (recommended for environment setup)
 
-You can install dependencies via:
+Install dependencies using:
 
 ```bash
 conda env create -f environment.yml
 conda activate mcopt
 ```
 
+---
 
-## Configuration
+## ⚙️ Configuration
 
-All user‑tweakable settings live at the top of `main.py` under the **CONFIGURATION** block:
+All configurable parameters are defined near the top of `main.py` under the **CONFIGURATION** block.
+
+### 🧱 Network settings
 
 ```python
-# Project directories
-GRID_DIM          = 9                   # Grid graph dimension
-NODES_TO_REMOVE   = [11,12,20,...]      # Nodes to exclude
-UNDIRECTED_GRAPH  = True                # Use undirected graph?
-
-# Failure randomness
-P_FAILURE                = 0.5         # Probability an edge fails
-UNDIRECTED_FAILING_EDGES = True        # Are failures undirected?
-CORRELATED_FAILURES      = False       # Use correlated failures?
-
-# SPSA solver parameters
-SPSA_CONFIG = SimpleNamespace(
-    max_iter=5_000_000,
-    a=0.1,
-    e=1e-8,
-    r_epsilon=0.602,
-    r_nu=0.200,
-    a_eps=1_000_000,
-    obj_interval=1000,
-    nsamples=1,
-    omega=1e-3,
-    target=None,
-)
-
-# Data file paths
-DATA_DIR        = Path(__file__).parent / "data"
-FAIL_LABEL_XLSX = DATA_DIR / "failure_maps" / "failure_labeling.xlsx"
+GRID_DIM = 9
+NODES_TO_REMOVE = [11, 12, ...]
+UNDIRECTED_GRAPH = False
 ```
 
-Adjust any of these values and rerun `main.py` to apply new settings.
+### 🎯 Optimization objective
 
+```python
+PI_HAT = np.full((N,), 1/N)  # Optional stationary distribution constraint
+C = np.full((N, N), 1 / N**2)  # Cost matrix
+```
 
-## Usage
+### ⚙️ SPSA solver parameters
 
-Run the optimization end‑to‑end with:
+```python
+SPSA_CONFIG = SimpleNamespace(
+    max_iter=5_000_000, # Number of iterations
+    a=0.1, # Step size for the gain
+    e=1e-8, # Perturbation size
+    r_epsilon=0.602, # Exponent for the gain
+    r_nu=0.200,     # Exponent for the perturbation
+    a_eps=1_000_000, # Step size denumqinator add-on
+    obj_interval=1000, # Interval for objective function evaluation
+    nsamples=1, # Number of single-run SPSA estimators
+    omega=1e-3, # Convergence threshold
+    target=None, # Target value for the objective function (None if not used)
+)
+```
+
+### 🌩️ Failure randomness settings
+
+```python
+P_FAILURE = 0.0                  # Probability of edge failure
+UNDIRECTED_FAILING_EDGES = True  # Symmetric failure assumption
+CORRELATED_FAILURES = True       # Use multivariate sampling
+```
+
+Ensure appropriate failure maps are defined in `data/failure_maps/`, and for correlated failure models, a valid covariance matrix should be defined following Chen (2015), in `data/covariance_matrices/`.
+
+### 🧍 Transition bounds
+
+```python
+ETA = 1e-4  # Lower bound on each transition probability
+```
+
+---
+
+## 🚀 Running the Optimizer
+
+Run the full optimization from the terminal:
 
 ```bash
 python main.py
 ```
 
-## Examples
+This will:
+- Initialize the network and Markov model
+- Run SPSA optimization
+- Save results under a timestamped folder inside `results/`
 
-After running, open the generated `results/run_<timestamp>/objective_history.png` to see convergence of the objective function, and optimal Markov chain `P_opt.npy`
+---
 
+## 📊 Output & Results
 
-## License & Contact
+Each run creates a subfolder in `results/`:
 
-This code is released under the MIT License.  
-Questions or feedback? Open an issue or contact the maintainer.
+```
+results/run_YYYYMMDD_HHMMSS/
+├── P_opt.npy                # Optimized transition matrix
+├── x_opt.npy               # Optimized decision vector
+├── objective_history.png   # Plot of objective vs iteration
+```
 
+---
+
+## 🔖 Citation
+
+If you use this code in your work, please cite the following paper:
+
+- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2024). A First-Order Gradient Approach for the Connectivity Analysis of Markov Chains. arXiv preprint arXiv:2403.11744. 
+
+---
+
+## 📚 References
+
+- Chen, M. (2015). Generating nonnegatively correlated binary random variates. The Stata Journal, 15(1), 301-308.
+
+---
+
+## 🛡️ License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 🤝 Contact
+
+Feel free to open an issue or reach out with questions or contributions!
