@@ -8,7 +8,7 @@ This repository implements an SPSA (Simultaneous Perturbation Stochastic Approxi
 
 ## 📦 Prerequisites
 
-- Python 3.7 (tested on 3.7.16)
+- Python 3.12 (tested on 3.12.2)
 - [Conda](https://docs.conda.io/en/latest/miniconda.html) (recommended for environment setup)
 
 Install dependencies using:
@@ -59,9 +59,8 @@ SPSA_CONFIG = SimpleNamespace(
 ### 🌩️ Failure randomness settings
 
 ```python
-P_FAILURE = 0.0                  # Probability of edge failure
-UNDIRECTED_FAILING_EDGES = True  # Symmetric failure assumption
-CORRELATED_FAILURES = True       # Use multivariate sampling
+P_FAILURE                = 0.0    # Probability that an edge fails
+CORRELATED_FAILURES      = True   # Use correlated edge failures
 ```
 
 Ensure appropriate failure maps are defined in `data/failure_maps/`, which indicate the failing edges in the network (after deleting nodes from the grid, if any). For correlated failure models, a valid covariance matrix should be defined following Chen (2015), and inserted in `data/covariance_matrices/`. The current instances reflects the example used in Section VI.B in Franssen et al. (2024).
@@ -124,4 +123,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## 🤝 Contact
 
-Feel free to open an issue or reach out with questions or contributions!
+Feel free to open an issue or reach out with questions at c.p.c.franssen [at] vu.nl.
