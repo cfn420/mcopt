@@ -63,9 +63,8 @@ SPSA_CONFIG = SimpleNamespace(
 )
 
 # Failure‐randomness settings
-P_FAILURE                = 0.0     # Probability that an edge fails
-UNDIRECTED_FAILING_EDGES = True    # If True, failures are undirected
-CORRELATED_FAILURES      = True   # If True, use failure_labeling_cor.xlsx
+P_FAILURE                = 0.0    # Probability that an edge fails
+CORRELATED_FAILURES      = True   # Use correlated edge failures
 
 # Lower bound for transition probabilities
 ETA = 1e-4
@@ -114,7 +113,7 @@ def main():
         mParam_failure   = (mp_label > 0).astype(int)
 
         randomness_kwargs = dict(
-            bUndirected_failing_edges=UNDIRECTED_FAILING_EDGES,
+            bUndirected_failing_edges=True,
             bCorrelated=CORRELATED_FAILURES,
             mu=mu,
             rho_matrix=rho_matrix,
