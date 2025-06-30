@@ -6,7 +6,7 @@ This repository implements an SPSA (Simultaneous Perturbation Stochastic Approxi
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 - Python 3.12 (tested on 3.12.2)
 - [Conda](https://docs.conda.io/en/latest/miniconda.html) (recommended for environment setup)
@@ -20,11 +20,11 @@ conda activate mcopt
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 All configurable parameters are defined near the top of `main.py` under the **CONFIGURATION** block.
 
-### 🧱 Define the network grid
+### Define the network grid
 
 ```python
 GRID_DIM = 9
@@ -32,14 +32,14 @@ NODES_TO_REMOVE = [11, 12, ...]
 UNDIRECTED_GRAPH = False
 ```
 
-### 🎯 Optimization objective
+### Optimization objective
 
 ```python
 PI_HAT = np.full((N,), 1/N)  # Optional stationary distribution constraint
 C = np.full((N, N), 1 / N**2)  # Matrix of weights for mean first passage times.
 ```
 
-### ⚙️ SPSA solver parameters
+### SPSA solver parameters
 
 ```python
 SPSA_CONFIG = SimpleNamespace(
@@ -56,7 +56,7 @@ SPSA_CONFIG = SimpleNamespace(
 )
 ```
 
-### 🌩️ Failure randomness settings
+### Failure randomness settings
 
 ```python
 P_FAILURE                = 0.0    # Probability that an edge fails
@@ -65,7 +65,7 @@ CORRELATED_FAILURES      = True   # Use correlated edge failures
 
 Ensure appropriate failure maps are defined in `data/failure_maps/`, which indicate the failing edges in the network (after deleting nodes from the grid, if any). For correlated failure models, a valid covariance matrix should be defined following Chen (2015), and inserted in `data/covariance_matrices/`. The current instances reflects the example used in Section VI.B in Franssen et al. (2024).
 
-### 🧍 Transition bounds
+### Transition bounds
 
 ```python
 ETA = 1e-4  # Lower bound on each transition probability
@@ -73,7 +73,7 @@ ETA = 1e-4  # Lower bound on each transition probability
 
 ---
 
-## 🚀 Running the Optimizer
+## Running the Optimizer
 
 Run the full optimization from the terminal:
 
@@ -88,7 +88,7 @@ This will:
 
 ---
 
-## 📊 Output & Results
+## Output & Results
 
 Each run creates a subfolder in `results/`:
 
@@ -101,7 +101,7 @@ results/run_YYYYMMDD_HHMMSS/
 
 ---
 
-## 🔖 Citation
+## Citation
 
 If you use this code in your work, please cite the following paper:
 
@@ -109,18 +109,18 @@ If you use this code in your work, please cite the following paper:
 
 ---
 
-## 📚 References
+## References
 
 - Chen, M. (2015). Generating nonnegatively correlated binary random variates. The Stata Journal, 15(1), 301-308.
 
 ---
 
-## 🛡️ License
+## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 🤝 Contact
+## Contact
 
 Feel free to open an issue or reach out with questions at c.p.c.franssen [at] vu.nl.
