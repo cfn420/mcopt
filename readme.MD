@@ -2,7 +2,7 @@
 
 This repository implements an SPSA (Simultaneous Perturbation Stochastic Approximation) solver to optimize the transition probabilities of a Markov chain with respect to (scaled) mean first passage times as in the paper:
 
-- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2025). A First-Order Gradient Approach for the Connectivity Analysis of Markov Chains. IEEE Transactions on Automatic Control.
+- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2025). A First-Order Gradient Approach for the Connectivity Optimization of Markov Chains. IEEE Transactions on Automatic Control.
 
 ---
 
@@ -105,7 +105,7 @@ results/run_YYYYMMDD_HHMMSS/
 
 If you use this code in your work, please cite the following paper:
 
-- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2024). A First-Order Gradient Approach for the Connectivity Analysis of Markov Chains. arXiv preprint arXiv:2403.11744. 
+- Franssen, C. P., Zocca, A., & Heidergott, B. F. (2025). A First-Order Gradient Approach for the Connectivity Optimization of Markov Chains. IEEE Transactions on Automatic Control. 
 
 ---
 
